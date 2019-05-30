@@ -1,11 +1,15 @@
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <string>
-
-//Author Shane Broxson
-//Made in Summer 2019 for COP2001
-//Add Documentation
-
+/** @file main.cpp
+ *  @brief Main file and whole file (for now).
+ *
+ *  Longer description of file.
+ *
+ *  @author Shane Broxson
+ *  @bug No known bugs.
+ */
 //Prototypes
 int userInputMain;
 
@@ -137,3 +141,121 @@ void createAccount() {
     std::cout << "Create Employee Account Stub" << std::endl;
 }
 
+//
+//
+//#include <iostream>
+//#include <iomanip>
+//#include <fstream>
+//#include <string>
+//#include <vector>
+//
+////using namespace std;
+//
+//void test();
+//
+//void test2();
+//
+//void numberoflines();
+//
+//void storeArray();
+//
+//void storeArray();
+//void sortArray();
+//void printArray();
+//
+//int itemTypeChoice;
+//std::string prodName;
+//std::string manufacturer;
+////std::string itemTypeCode;
+//int numProduced;
+//extern int count = 0;
+//std::string line;
+//
+//std::string choice;
+//int y = 1;
+//
+//int main() {
+//    numberoflines();
+//
+//
+//
+//    std::cout << "Enter the Manufacturer\n";
+//
+//    std::cin >> manufacturer;
+//    std::cout << "Enter the Product Name\n";
+//
+//    std::cin >> prodName;
+//    std::cout << "Enter the item type\n";
+//    std::cout << "1. Audio\n" <<
+//              "2. Visual\n" <<
+//              "3. AudioMobile\n" <<
+//              "4. VisualMobile\n";
+//
+//    std::cin >> itemTypeChoice;
+//
+//    // Audio "MM", Visual "VI", AudioMobile "AM", or VisualMobile "VM".
+//
+//    if (itemTypeChoice == 1) {
+//        choice = "MM";
+//    }
+//    std::cout << "Enter the number of items that were produced\n";
+//
+//    std::cin >> numProduced;
+//    //Printing serial numbers
+//
+//    for (int i = numProduced; y <= numProduced; y++) {
+//        std::string manReduced = manufacturer.substr(0, 3);
+//        std::cout << "Production Number: " << y << " Serial Number: " << manReduced << choice << std::setfill('0')
+//                  << std::setw(5) << y << std::endl;
+//
+//
+//        std::ofstream myfile;
+//        myfile.open ("example.txt",std::ios_base::app);
+//        test2;
+//        myfile << manReduced<<" "<<choice<<" "<<std::setfill('0')<<std::setw(5)<<y<<std::endl;
+//        myfile.close();
+//
+//    }
+//
+//
+//    numberoflines();
+//}
+//
+////
+//void test() {
+//    std::string manReduced = manufacturer.substr(0, 3);
+//    std::ifstream myfile("example.txt");
+//    while(myfile>>manReduced>>choice>>y){
+//        std::cout<<manReduced<<choice<<y<<std::endl;
+//    }
+//
+//}
+//
+//void test2() {}
+//
+//
+//
+////count number of lines in text file
+//void numberoflines(){
+//    std::ifstream myfile("example.txt");
+//    while(getline(myfile, line))
+//        count++;
+//    std::cout<<count<<std::endl;
+//}
+//
+////move into array
+//void storeArray(){
+//
+//
+//}
+////sort array
+//void sortArray(){
+//
+//}
+//
+////Print Array
+//void printArray(){
+//
+//}
+//
+////repeat for each instance of production
