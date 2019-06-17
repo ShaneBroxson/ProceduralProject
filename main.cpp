@@ -21,11 +21,22 @@ produceItems(std::vector<std::string> &, std::vector<std::string> &, std::vector
              std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
              std::vector<std::string> &);
 
-void resetAndRepopulateVectors(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &, std::vector<int> &,
+void resetAndRepopulateVectors(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
+                               std::vector<int> &,
                                std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
                                std::vector<std::string> &);
 
 void addNewItems(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &);
+
+void sortProductionList(std::vector<int> &, std::vector<std::string> &, std::vector<std::string> &,
+                        std::vector<std::string> &, std::vector<std::string> &);
+
+void produceStatistics(std::vector<int> &, std::vector<std::string> &, std::vector<std::string> &,
+                       std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &);
+
+void employeeLogin();
+
+void addEmployeeAccount();
 
 int main() {
     ///********* Vectors for ProductLine*********
@@ -87,7 +98,7 @@ int main() {
         productionNames.push_back(prodName);
         serialNumbers.push_back(serialNum);
 
-       // std::cout<<itemTypeCode<<std::endl;
+        // std::cout<<itemTypeCode<<std::endl;
 
 
     }
@@ -111,15 +122,19 @@ int main() {
         if (userMenuChoice == 1) {
             produceItems(productLineManufacturers, productLineNames, productLineItemTypes, productionNumbers,
                          productionManufacturers, productionNames, productionItemTypes, serialNumbers);
-            resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes, productionNumbers,
+            resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes,
+                                      productionNumbers,
                                       productionManufacturers, productionNames, productionItemTypes, serialNumbers);
+            system("pause");
         } else if (userMenuChoice == 2) {
             addNewItems(productLineManufacturers, productLineNames, productLineItemTypes);
-            resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes, productionNumbers,
+            resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes,
+                                      productionNumbers,
                                       productionManufacturers, productionNames, productionItemTypes, serialNumbers);
         } else if (userMenuChoice == 3) {
-            //count;
-//            statistics();
+            produceStatistics(productionNumbers,
+                              productionManufacturers, productionNames, productionItemTypes, serialNumbers,
+                              productLineItemTypes);
         } else if (userMenuChoice == 4) {
 //            empAccount();
         } else if (userMenuChoice == 5) {
@@ -130,8 +145,6 @@ int main() {
             std::cout << "You have entered an invalid number, please try again.\n\n" << std::endl;
         }
     }
-    //vector to store product line information
-    //addToProductLine(productionLineManufacturer,productLineName,productLineItemType,productionNumber);
     return 0;
 }
 
@@ -185,16 +198,14 @@ void produceItems(std::vector<std::string> &productLineManufacturers,
         }
         //std::cout << productionItemTypes[i] << std::endl;
     }
+    //test line for item count
     //std::cout << itemType << " appeared " << countItemType << " times" << std::endl;
-
-    //count for production number
-//    name.size();
 
     //create serial num and save
     int serialCount = 1;
     int prodNum = productionNumbers.size();
     //std::cout << productionManufacturers.size()<<std::endl;
-    while (serialCount < serialNumInput+1) {
+    while (serialCount < serialNumInput + 1) {
         prodNum++;
         std::ofstream productionList;
         productionList.open("production_list.csv", std::ios_base::app);
@@ -205,22 +216,14 @@ void produceItems(std::vector<std::string> &productLineManufacturers,
                        << productLineNames[userChoiceForProduct] << "," << manReduced
                        << productLineItemTypes[userChoiceForProduct] << std::setfill('0') << std::setw(5)
                        << countItemType + serialCount << std::endl;
-
-        ///add to vector *********************
-//        productionManufacturers.push_back(manufacturer);
-//        productionNames.push_back(prodName);
-//        productionItemTypes.push_back(itemTypeCode);
-
-//        std::cout << y << "," << productLineManufacturers[userChoiceForProduct]
-//                  << "," << productLineItemTypes[userChoiceForProduct] << "," << std::setfill('0') << std::setw(5)
-//                  << countItemType + y << std::endl;
         serialCount++;
     }
 
 }
 
 void resetAndRepopulateVectors(std::vector<std::string> &productLineManufacturers,
-                               std::vector<std::string> &productLineNames, std::vector<std::string> &productLineItemTypes,
+                               std::vector<std::string> &productLineNames,
+                               std::vector<std::string> &productLineItemTypes,
                                std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
                                std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
                                std::vector<std::string> &serialNumbers) {
@@ -231,7 +234,7 @@ void resetAndRepopulateVectors(std::vector<std::string> &productLineManufacturer
         productLineItemTypes.pop_back();
     }
 
-    while (0 <productionNumbers.size()){
+    while (0 < productionNumbers.size()) {
         productionNumbers.pop_back();
         productionManufacturers.pop_back();
         productionItemTypes.pop_back();
@@ -287,7 +290,7 @@ void resetAndRepopulateVectors(std::vector<std::string> &productLineManufacturer
 }
 
 void addNewItems(std::vector<std::string> &productLineManufacturers,
-                 std::vector<std::string> &productLineNames, std::vector<std::string> &productLineItemTypes){
+                 std::vector<std::string> &productLineNames, std::vector<std::string> &productLineItemTypes) {
     std::cout << "\nAdd Product to Cataglog" << std::endl;
     std::cout << "***********************" << std::endl;
     std::string manufacturer, prodName;
@@ -325,4 +328,160 @@ void addNewItems(std::vector<std::string> &productLineManufacturers,
         catalog << manufacturer << "," << prodName << "," << itemTypeCode << std::endl;
         catalogCount++;
     }
+}
+///delete option with remove and sort
+
+///sort vectors
+void sortProductionList(std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
+                        std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
+                        std::vector<std::string> &serialNumbers) {
+
+}
+
+void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
+                       std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
+                       std::vector<std::string> &serialNumbers, std::vector<std::string> &productLineItemTypes) {
+    ///number of each type
+    ///total items produced
+    ///view each type
+    ///search by serial number
+    int statisticChoice;
+    std::cout << "\nChoose Statistic to Produce:" << std::endl;
+    std::cout << "****************************" << std::endl;
+    std::cout
+            << "1. Number of each Item Type\n2. Total Items Produced\n3. Display Serials of Type\n"
+               "4. Display Entire Production Log\n5. Search for Serial Number Info" << std::endl;
+    std::cin >> statisticChoice;
+    switch (statisticChoice) {
+        case 1: {
+            //Displaying number of each Item Type
+            int countItemType = 0;
+            std::string itemType = "MM";
+            for (int i = 0; i < productionItemTypes.size(); i++) {
+                if (itemType == productionItemTypes[i]) {
+                    countItemType++;
+                }
+            }
+            std::cout << "Number of 'MM': " << countItemType << std::endl;
+            //Reset for next type
+            countItemType = 0;
+            itemType = "VI";
+            for (int i = 0; i < productionItemTypes.size(); i++) {
+                if (itemType == productionItemTypes[i]) {
+                    countItemType++;
+                }
+            }
+            std::cout << "Number of 'VI': " << countItemType << std::endl;
+            //Reset for next type
+            countItemType = 0;
+            itemType = "AM";
+            for (int i = 0; i < productionItemTypes.size(); i++) {
+                if (itemType == productionItemTypes[i]) {
+                    countItemType++;
+                }
+            }
+            std::cout << "Number of 'AM': " << countItemType << std::endl;
+            //Reset for next type
+            countItemType = 0;
+            itemType = "VM";
+            for (int i = 0; i < productionItemTypes.size(); i++) {
+                if (itemType == productionItemTypes[i]) {
+                    countItemType++;
+                }
+            }
+            std::cout << "Number of 'VM': " << countItemType << std::endl;
+            system("pause");
+            break;
+        }
+        case 2: {
+            //total items produced
+            int totalItemCount = 0;
+            for (totalItemCount; totalItemCount < productionItemTypes.size(); totalItemCount++) {
+            }
+            std::cout << "Total Items Currently Produced: " << totalItemCount << std::endl;
+            system("pause");
+            break;
+        }
+        case 3: {
+            //serials of certain type
+            int itemType;
+            std::cout << "What is the Item Type:\n1. Audio\n2. Visual\n3. AudioMobile\n4. VisualMobile" << std::endl;
+            std::cin >> itemType;
+            std::string itemTypeCode;
+            switch (itemType) {
+                case 1:
+                    itemTypeCode = "MM";
+                    break;
+                case 2:
+                    itemTypeCode = "VI";
+                    break;
+                case 3:
+                    itemTypeCode = "AM";
+                    break;
+                case 4:
+                    itemTypeCode = "VM";
+                    break;
+                default:
+                    std::cout << "Not a valid selection\n";
+                    std::cout << "Setting type to 'NA'\n";
+                    itemTypeCode = "NA";
+                    break;
+            }
+            std::cout << "Serial Numbers for Type of: " << itemTypeCode << std::endl;
+            int ifPrinted = 0;
+            for (int outputCount = 0; outputCount < productionItemTypes.size(); outputCount++) {
+                if (itemTypeCode == productionItemTypes[outputCount]) {
+                    std::cout << serialNumbers[outputCount] << std::endl;
+                    ifPrinted++;
+                }
+            }
+            if (ifPrinted == 0) {
+                std::cout << "No Items of that Type found." << std::endl;
+            }
+            system("pause");
+            break;
+        }
+        case 4: {
+            //display entire production log
+            for (int outputCount = 0; outputCount < productionItemTypes.size(); outputCount++) {
+                    std::cout << productionNumbers[outputCount] << ". Manufacturer: '"
+                              << productionManufacturers[outputCount] << "' Item Type: '"
+                              << productionItemTypes[outputCount]
+                              << "' Product Name: '" << productionNames[outputCount] << "' Serial Number: '" <<
+                              serialNumbers[outputCount] << "'" << std::endl;
+            }
+            break;
+        }
+        case 5: {
+            //search for serial number
+            std::cout << "Enter the Serial Number: ";
+            std::string serialInput;
+            std::cin >> serialInput;
+            int ifPrinted = 0;
+            for (int serialCount = 0; serialCount < serialNumbers.size(); serialCount++){
+                if(serialNumbers[serialCount] == serialInput){
+                    std::cout << productionNumbers[serialCount] << ". Manufacturer: '"
+                              << productionManufacturers[serialCount] << "' Item Type: '"
+                              << productionItemTypes[serialCount]
+                              << "' Product Name: '" << productionNames[serialCount] << "'" << std::endl;
+                    ifPrinted++;
+                }
+            }
+            if(ifPrinted == 0){
+                std::cout << "That Serial Number Could Not Be Found." << std::endl;
+            }
+            break;
+        }
+        default:
+            std::cout << "Invalid selection" << std::endl;
+            break;
+    }
+}
+
+void employeeLogin() {
+
+}
+
+void addEmployeeAccount() {
+
 }
