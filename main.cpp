@@ -288,7 +288,6 @@ void produceItems(std::vector<std::string> &productLineManufacturers,
         if (itemType == productionItemTypes[i]) {
             countItemType++;
         }
-        //std::cout << productionItemTypes[i] << std::endl;
     }
     //test line for item count
     //std::cout << itemType << " appeared " << countItemType << " times" << std::endl;
