@@ -9,9 +9,12 @@
 /** @file main.cpp
  *  @brief Main file.
  *  Saves 3 text documents storing data used in program.
+ *  Can produce Items and keep track of items data and Serial Number
+ *  Must log in first to be able to use any function in this program
+ *  Default added User/Pass: admin/Adm1n
  *
  *  @author Shane Broxson
- *  @bug No Known Bugs.
+ *  @bug Prints out every user input.
 */
 //Prototypes
 
@@ -543,13 +546,13 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
         }
         case 5: {
             //search for serial number
-            std::cout << "Enter the Serial Number: ";
+            std::cout << "Enter the Serial Number: \n";
             std::string serialInput;
             std::cin >> serialInput;
             int ifPrinted = 0;
             for (int serialCount = 0; serialCount < serialNumbers.size(); serialCount++) {
                 if (serialNumbers[serialCount] == serialInput) {
-                    std::cout << productionNumbers[serialCount] << ". Manufacturer: '"
+                    std::cout << "Production Number: '" << productionNumbers[serialCount] << ".' Manufacturer: '"
                               << productionManufacturers[serialCount] << "' Item Type: '"
                               << productionItemTypes[serialCount]
                               << "' Product Name: '" << productionNames[serialCount] << "'" << std::endl;
