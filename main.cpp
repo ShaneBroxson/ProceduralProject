@@ -586,7 +586,15 @@ void createEmployeeAccount(std::vector<std::string> &password, std::vector<std::
     std::transform(user_name.begin(), user_name.end(), user_name.begin(), ::tolower);
     std::string pass;
 
-
+    //changes user if duplicate would be created
+    for(int i = 0; i < userName.size(); i++){
+        int nameCount = 0;
+        if(user_name == userName[i]){
+            nameCount++;
+            std::string sNameCount = std::to_string(nameCount);
+            user_name = user_name+sNameCount;
+        }
+    }
     std::cout << "Your generated user name: " + user_name + "\n";
 
     //check if password entered is valid
