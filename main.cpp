@@ -481,7 +481,7 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
                 }
             }
             std::cout << "Number of 'VM': " << countItemType << std::endl;
-            system("pause");
+            //system("pause");
             break;
         }
         case 2: {
@@ -490,7 +490,7 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             for (totalItemCount; totalItemCount < productionItemTypes.size(); totalItemCount++) {
             }
             std::cout << "Total Items Currently Produced: " << totalItemCount << std::endl;
-            system("pause");
+            //system("pause");
             break;
         }
         case 3: {
@@ -529,7 +529,7 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             if (ifPrinted == 0) {
                 std::cout << "No Items of that Type found." << std::endl;
             }
-            system("pause");
+            //system("pause");
             break;
         }
         case 4: {
