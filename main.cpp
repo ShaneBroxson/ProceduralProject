@@ -6,7 +6,7 @@
  *  Default added User/Pass: admin/Adm1n
  *
  *  @author Shane Broxson
- *  @bug No Known Bugs.
+ *  @bug Will not log into account that was just created.
 */
 #include <iostream>
 #include <fstream>
