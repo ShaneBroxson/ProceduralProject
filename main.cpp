@@ -397,7 +397,8 @@ void add_new_items(std::vector<catalog_struct> &catalog_vector) {
     std::cin >> manufacturer;
     std::cout << "Enter Product Name:" << std::endl;
     std::cin >> prodName;
-    std::cout << "What is the Item Type:\n1. Audio\n2. Visual\n3. AudioMobile\n4. VisualMobile" << std::endl;
+    std::cout << "What is the Item Type:\n1. Audio (MM)\n2. Visual (VI)\n3. AudioMobile (AM)\n4. VisualMobile (VM)"
+              << std::endl;
     std::cin >> itemType;
     std::string itemTypeCode;
     switch (itemType) {
@@ -628,9 +629,6 @@ void create_employee_account(std::vector<employee_accounts_struct> &employee_acc
     /// STRUCT FOR EMP ACCOUNTS AND ENCRYPT PASSWORD SORT OUT
     if (valid) {
         std::cout << "Valid Password" << std::endl;
-        emp.userName = user_name;
-        emp.password = pass;
-        employee_accounts_vector.push_back(emp);
 
         /* save both to file */
         emp_test.testUserName = user_name;
@@ -645,6 +643,7 @@ void create_employee_account(std::vector<employee_accounts_struct> &employee_acc
             char new_first_char = first_char;
             end_pass += new_first_char;
         }
+        emp.userName = user_name;
         emp.password = end_pass;
         employee_accounts_vector.push_back(emp);
 
@@ -688,7 +687,6 @@ bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vec
                 end_pass += new_first_char;
             }
             user_found = true;
-
             if (end_pass == employee_accounts_vector[count].password) {
                 std::cout << "Login Success: " << std::endl;
                 logged_in = true;

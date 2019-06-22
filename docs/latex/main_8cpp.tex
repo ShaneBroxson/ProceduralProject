@@ -1,0 +1,192 @@
+\hypertarget{main_8cpp}{}\section{D\+:/\+One\+Drive -\/ Florida Gulf Coast University/\+Procedural\+Project/main.cpp File Reference}
+\label{main_8cpp}\index{D:/OneDrive -\/ Florida Gulf Coast University/ProceduralProject/main.cpp@{D:/OneDrive -\/ Florida Gulf Coast University/ProceduralProject/main.cpp}}
+
+
+Main file. Saves 3 text documents storing data used in program. Can produce Items and keep track of items data and Serial Number. Must log in first to be able to use any function in this program. Default added User/\+Pass\+: admin/\+Adm1n.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}}
+\begin{DoxyCompactList}\small\item\em $\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$\+Prototypes$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}}
+\begin{DoxyCompactList}\small\item\em Struct to hold strings taken from \char`\"{}production\+\_\+list.\+csv\char`\"{}. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}}
+\begin{DoxyCompactList}\small\item\em Struct for holding strings of username and password to login. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}}
+\begin{DoxyCompactList}\small\item\em Struct for holding testcases for username and password. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_ab2e52720dbbc1664dd82ca68fc12210f}{display\+\_\+menu\+\_\+and\+\_\+get\+\_\+choice}} ()
+\begin{DoxyCompactList}\small\item\em Displays a menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a64c47061471ab54a12793b040051e064}{produce\+\_\+items}} (std\+::vector$<$ \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} $>$ \&, const std\+::vector$<$ \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em Takes vector of structs of production\+\_\+list and catalog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a597247b91472834b425ca3b557abec8a}{add\+\_\+new\+\_\+items}} (std\+::vector$<$ \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em Adds a single new product choice to vector of structs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a43f512830fdd453295fc7fd01765d313}{produce\+\_\+statistics}} (const std\+::vector$<$ \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em Produces statistics gathered from \char`\"{}production\+\_\+list.\+csv\char`\"{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a9136600d19beeb6ebe83180884e4d5fc}{create\+\_\+employee\+\_\+account}} (std\+::vector$<$ \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}} $>$ \&, std\+::vector$<$ \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em Creates new employee account. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{main_8cpp_a5f2ce756a9602bccb37ce69281816873}{employee\+\_\+login}} (std\+::vector$<$ \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}} $>$ \&, std\+::vector$<$ \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em Checks user input to created accounts to log into account. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{main_8cpp_a8bdf930628c0481984114ed09ff40da0}\label{main_8cpp_a8bdf930628c0481984114ed09ff40da0}} 
+struct \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}} {\bfseries cata}
+\item 
+\mbox{\Hypertarget{main_8cpp_a5a419299d06b6d12007594629c541067}\label{main_8cpp_a5a419299d06b6d12007594629c541067}} 
+struct \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} {\bfseries prod\+\_\+list}
+\item 
+\mbox{\Hypertarget{main_8cpp_a166e0fe4e9a21eb9551e87981dddecd3}\label{main_8cpp_a166e0fe4e9a21eb9551e87981dddecd3}} 
+struct \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}} {\bfseries emp}
+\item 
+\mbox{\Hypertarget{main_8cpp_a6a673c0b95c9074261abecb11687a6bf}\label{main_8cpp_a6a673c0b95c9074261abecb11687a6bf}} 
+struct \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}} {\bfseries emp\+\_\+test}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main file. Saves 3 text documents storing data used in program. Can produce Items and keep track of items data and Serial Number. Must log in first to be able to use any function in this program. Default added User/\+Pass\+: admin/\+Adm1n. 
+
+\begin{DoxyAuthor}{Author}
+Shane Broxson 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\mbox{\hyperlink{bug__bug000001}{Bug}}]No Known Bugs. \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a597247b91472834b425ca3b557abec8a}\label{main_8cpp_a597247b91472834b425ca3b557abec8a}} 
+\index{main.cpp@{main.cpp}!add\_new\_items@{add\_new\_items}}
+\index{add\_new\_items@{add\_new\_items}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{add\_new\_items()}{add\_new\_items()}}
+{\footnotesize\ttfamily void add\+\_\+new\+\_\+items (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}} $>$ \&}]{catalog\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Adds a single new product choice to vector of structs. 
+
+product\+Line\+Manufacturer taken by user inputted string. product\+Line\+Name taken by user inputted string. product\+Line\+Item\+Type is created by setting string = to user choice for displayed item type. New struct is added to vector$<$catalog\+\_\+struct$>$ and new choice is saved to \char`\"{}\+Catalog.\+csv\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector$<$catalog\+\_\+struct$>$} & is passed in to be changed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a9136600d19beeb6ebe83180884e4d5fc}\label{main_8cpp_a9136600d19beeb6ebe83180884e4d5fc}} 
+\index{main.cpp@{main.cpp}!create\_employee\_account@{create\_employee\_account}}
+\index{create\_employee\_account@{create\_employee\_account}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{create\_employee\_account()}{create\_employee\_account()}}
+{\footnotesize\ttfamily void create\+\_\+employee\+\_\+account (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}} $>$ \&}]{employee\+\_\+accounts\+\_\+vector,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}} $>$ \&}]{employee\+\_\+test\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Creates new employee account. 
+
+Takes input from user for account Username creation and tests input. Takes input from user fro account Password creation and tests input. If password is valid, it is encrypted. Username and Password is added to vector$<$employee\+\_\+accounts\+\_\+struct$>$ and saved to \char`\"{}employee\+\_\+accounts.\+csv\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector$<$employee\+\_\+accounts\+\_\+struct$>$} & is being saved and saved to \char`\"{}employee\+\_\+accounts.\+csv\char`\"{} vector$<$employee\+\_\+test\+\_\+struct$>$ is used to test before being passed into vector$<$employee\+\_\+accounts\+\_\+struct$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+S\+T\+R\+U\+CT F\+OR E\+MP A\+C\+C\+O\+U\+N\+TS A\+ND E\+N\+C\+R\+Y\+PT P\+A\+S\+S\+W\+O\+RD S\+O\+RT O\+UT \mbox{\Hypertarget{main_8cpp_ab2e52720dbbc1664dd82ca68fc12210f}\label{main_8cpp_ab2e52720dbbc1664dd82ca68fc12210f}} 
+\index{main.cpp@{main.cpp}!display\_menu\_and\_get\_choice@{display\_menu\_and\_get\_choice}}
+\index{display\_menu\_and\_get\_choice@{display\_menu\_and\_get\_choice}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{display\_menu\_and\_get\_choice()}{display\_menu\_and\_get\_choice()}}
+{\footnotesize\ttfamily int display\+\_\+menu\+\_\+and\+\_\+get\+\_\+choice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Displays a menu. 
+
+Gives a list of choices to choose that program can do. Must be logged\+\_\+in to get to this point. Once Input is returned, indicated which Switch case runs.
+
+\begin{DoxyReturn}{Returns}
+The Input Character 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a5f2ce756a9602bccb37ce69281816873}\label{main_8cpp_a5f2ce756a9602bccb37ce69281816873}} 
+\index{main.cpp@{main.cpp}!employee\_login@{employee\_login}}
+\index{employee\_login@{employee\_login}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{employee\_login()}{employee\_login()}}
+{\footnotesize\ttfamily bool employee\+\_\+login (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structemployee__accounts__struct}{employee\+\_\+accounts\+\_\+struct}} $>$ \&}]{employee\+\_\+accounts\+\_\+vector,  }\item[{std\+::vector$<$ \mbox{\hyperlink{structemployee__test__struct}{employee\+\_\+test\+\_\+struct}} $>$ \&}]{employee\+\_\+test\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Checks user input to created accounts to log into account. 
+
+Tests inputted username to vector$<$employee\+\_\+accounts\+\_\+struct$>$ to see if it exists. If account exists takes input for password. Encrypts test case for password and compares to position of vector$<$employee\+\_\+accounts\+\_\+struct$>$ at Username. If test case for password = saved account password return logged\+\_\+in = true, else logged\+\_\+in = false.
+
+
+\begin{DoxyParams}{Parameters}
+{\em if} & test\+User == username\mbox{[}position\mbox{]}, then if test\+Pass == password\mbox{[}username\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Add login status before program loop \mbox{\Hypertarget{main_8cpp_a64c47061471ab54a12793b040051e064}\label{main_8cpp_a64c47061471ab54a12793b040051e064}} 
+\index{main.cpp@{main.cpp}!produce\_items@{produce\_items}}
+\index{produce\_items@{produce\_items}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{produce\_items()}{produce\_items()}}
+{\footnotesize\ttfamily void produce\+\_\+items (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} $>$ \&}]{production\+\_\+list\+\_\+vector,  }\item[{const std\+::vector$<$ \mbox{\hyperlink{structcatalog__struct}{catalog\+\_\+struct}} $>$ \&}]{catalog\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Takes vector of structs of production\+\_\+list and catalog. 
+
+Loops through vector of structs for catalog to take a choice. Userchoice-\/1 is the position on the vector for information wanted. Product Manufacturer, Item Type, and Item Name are defined by that choice. Serial Number and Production Number are created through information above and loop counts. Vector for \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} is added and new values are saved to \char`\"{}production\+\_\+list.\+csv\char`\"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector$<$production\+\_\+list\+\_\+struct$>$} & is added to by choice of vector$<$catalog\+\_\+struct$>$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a43f512830fdd453295fc7fd01765d313}\label{main_8cpp_a43f512830fdd453295fc7fd01765d313}} 
+\index{main.cpp@{main.cpp}!produce\_statistics@{produce\_statistics}}
+\index{produce\_statistics@{produce\_statistics}!main.cpp@{main.cpp}}
+\subsubsection{\texorpdfstring{produce\_statistics()}{produce\_statistics()}}
+{\footnotesize\ttfamily void produce\+\_\+statistics (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{structproduction__list__struct}{production\+\_\+list\+\_\+struct}} $>$ \&}]{production\+\_\+list\+\_\+vector }\end{DoxyParamCaption})}
+
+
+
+Produces statistics gathered from \char`\"{}production\+\_\+list.\+csv\char`\"{}. 
+
+Displays number of each Item Type already produced. Displays total number of Items already produced. Displays all serial numbers of the same type. Displays the entire production list line by line from \char`\"{}production\+\_\+list.\+csv\char`\"{}. Ability to search for certain Serial Number and displays information linked to that Serial.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector$<$production\+\_\+list\+\_\+struct$>$} & is passed in as const \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
