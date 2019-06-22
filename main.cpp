@@ -397,7 +397,7 @@ void add_new_items(std::vector<catalog_struct> &catalog_vector) {
     std::cin >> manufacturer;
     std::cout << "Enter Product Name:" << std::endl;
     std::cin >> prodName;
-    std::cout << "What is the Item Type:\n1. Audio (MM)\n2. Visual (VI)\n3. AudioMobile (AM)\n4. VisualMobile (VM)"
+    std::cout << "What is the Item Type:\n1. Audio (MM)\n2. Visual (VI)\n3. AudioMobile (AM)\n4. VisualMobile (VM) "
               << std::endl;
     std::cin >> itemType;
     std::string itemTypeCode;
