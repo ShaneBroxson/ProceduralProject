@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/OneDrive - Florida Gulf Coast University/ProceduralProject/main.cpp
+iostream
+-
+fstream
+-
+iomanip
+-
+string
+-
+algorithm
+-
+vector
+-
+sstream
+-
+cctype
+-
+
