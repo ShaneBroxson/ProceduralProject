@@ -1,11 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-#include <algorithm>
-#include <vector>
-#include <sstream>
-#include <cctype>
 /** @file main.cpp
  *  @brief Main file.
  *  Saves 3 text documents storing data used in program.
@@ -14,88 +6,96 @@
  *  Default added User/Pass: admin/Adm1n
  *
  *  @author Shane Broxson
- *  @bug Prints out every user input.
+ *  @bug Prints out every user input. -Fixed
 */
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <sstream>
+#include <cctype>
+
 //Prototypes
 
-int displayMenuAndGetChoice();
+//Vectors for Catalog in Struct
+struct catalog_struct {
+    ///********* Vectors for ProductLine*********
+    //parallel vector to store product manufacturer
+    std::string productLineManufacturers;
+    //parallel vector to store product name
+    std::string productLineNames;
+    //parallel vector to store product item type
+    std::string productLineItemTypes;
+}cata;
 
-void
-produceItems(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &, std::vector<int> &,
-             std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
-             std::vector<std::string> &);
+//Vectors for Production List in Struct
+struct production_list_struct {
+    ///********* Vectors for Production*********
+    //parallel vector to store product manufacturer
+    std::string productionManufacturers;
+    //parallel vector to store product name
+    std::string productionNames;
+    //parallel vector to store product item type
+    std::string productionItemTypes;
+    //parallel vector to store the serial numbers
+    std::string serialNumbers;
+    //parallel vector to store production number
+    int productionNumbers;
+}prod_list;
 
-void resetAndRepopulateVectors(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
-                               std::vector<int> &,
-                               std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
-                               std::vector<std::string> &);
+//Vectors for Employee Accounts in Struct
+struct employee_accounts_struct {
+    ///********* Vector for Emp Account*********
+    std::string password;
+    std::string userName;
+}emp;
 
-void addNewItems(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &);
+struct employee_test_struct {
+    ///********* Vector for Password Testing****
+    std::string password_temp;
+    ///********* Vector for UserName Testing****
+    std::string testUserName;
+}emp_test;
 
-void sortProductionList(std::vector<int> &, std::vector<std::string> &, std::vector<std::string> &,
-                        std::vector<std::string> &, std::vector<std::string> &);
+int display_menu_and_get_choice();
 
-void produceStatistics(std::vector<int> &, std::vector<std::string> &, std::vector<std::string> &,
-                       std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &);
+void produce_items(std::vector<production_list_struct> &, const std::vector<catalog_struct> &);
 
-void createEmployeeAccount(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &);
+void add_new_items(std::vector<catalog_struct> &);
 
-void encrypt_password(std::vector<std::string> &, std::vector<std::string> &);
+void produce_statistics(const std::vector<production_list_struct> &);
 
-void encrypt_test_password(std::vector<std::string> &);
+void create_employee_account(std::vector<employee_accounts_struct> &, std::vector<employee_test_struct> &);
 
-bool employee_login(std::vector<std::string> &, std::vector<std::string> &, std::vector<std::string> &,
-                    std::vector<std::string> &);
+bool employee_login(std::vector<employee_accounts_struct> &, std::vector<employee_test_struct> &);
 
 int main() {
-    ///********* Vectors for ProductLine*********
-//parallel vector to store product manufacturer
-    std::vector<std::string> productLineManufacturers;
-//parallel vector to store product name
-    std::vector<std::string> productLineNames;
-//parallel vector to store product item type
-    std::vector<std::string> productLineItemTypes;
+    //vector for production_list
+    std::vector<catalog_struct> catalog_vector;
+    //vector for catalog
+    std::vector<production_list_struct> production_list_vector;
+    //vector for employee_accounts
+    std::vector<employee_accounts_struct> employee_accounts_vector;
+    //vector for testing employee account login
+    std::vector<employee_test_struct> employee_test_vector;
 
-    ///********* Vectors for Production*********
-//parallel vector to store product manufacturer
-    std::vector<std::string> productionManufacturers;
-//parallel vector to store product name
-    std::vector<std::string> productionNames;
-//parallel vector to store product item type
-    std::vector<std::string> productionItemTypes;
-//parallel vector to store the serial numbers
-    std::vector<std::string> serialNumbers;
-//parallel vector to store production number
-    std::vector<int> productionNumbers;
-    ///********* Vector for Emp Account*********
-    std::vector<std::string> password;
-    std::vector<std::string> userName;
-    ///********* Vector for Password Testing****
-    //std::vector<std::string> testPassword;
-    std::vector<std::string> password_temp;
-    ///********* Vector for UserName Testing****
-    std::vector<std::string> testUserName;
-
+    ///Populates Vectors
     std::string line;
     //file to string and string to vector
     //catalog
     std::ifstream catalog("Catalog.csv");
-    std::string manufacturer;
-    std::string prodName;
-    std::string itemTypeCode;
     while (getline(catalog, line)) {
         std::stringstream ss(line);
-        getline(ss, manufacturer, ',');
-        getline(ss, prodName, ',');
-        getline(ss, itemTypeCode);
-        productLineManufacturers.push_back(manufacturer);
-        productLineNames.push_back(prodName);
-        productLineItemTypes.push_back(itemTypeCode);
-
+        getline(ss, cata.productLineManufacturers, ',');
+        getline(ss,  cata.productLineNames, ',');
+        getline(ss, cata.productLineItemTypes);
+        catalog_vector.push_back(cata);
     }
     catalog.close();
-    //if catalog does not exist creates catalog and puts in sample products
-    if (productLineManufacturers.size() == 0) {
+    //if catalog file does not exist create file and populate vector
+    if(catalog_vector.size() == 0){
         std::ofstream populateCatalog("Catalog.csv");
         populateCatalog << "Microsoft,Zune,AM" << std::endl;
         populateCatalog << "Apple,iPod,AM" << std::endl;
@@ -103,172 +103,148 @@ int main() {
         populateCatalog.close();
         while (getline(catalog, line)) {
             std::stringstream ss(line);
-            getline(ss, manufacturer, ',');
-            getline(ss, prodName, ',');
-            getline(ss, itemTypeCode);
-            productLineManufacturers.push_back(manufacturer);
-            productLineNames.push_back(prodName);
-            productLineItemTypes.push_back(itemTypeCode);
-
+            getline(ss, cata.productLineManufacturers, ',');
+            getline(ss,  cata.productLineNames, ',');
+            getline(ss, cata.productLineItemTypes);
+            catalog_vector.push_back(cata);
         }
+        populateCatalog.close();
     }
-
-
     //file to string and string to vector
     //production list
-    int prodNum;
-    std::string prodNumString;
-    std::string serialNum;
-    std::ifstream productionList("production_list.csv");
-    while (getline(productionList, line)) {
+    std::ifstream production_list("production_list.csv");
+    while(getline(production_list, line)) {
         std::stringstream ss(line);
-        getline(ss, prodNumString, ',');
-        prodNum = std::stoi(prodNumString);
-        getline(ss, manufacturer, ',');
-        getline(ss, itemTypeCode, ',');
-        getline(ss, prodName, ',');
-        getline(ss, serialNum, ',');
-        productionNumbers.push_back(prodNum);
-        productionManufacturers.push_back(manufacturer);
-        productionItemTypes.push_back(itemTypeCode);
-        productionNames.push_back(prodName);
-        serialNumbers.push_back(serialNum);
-
-        // std::cout<<itemTypeCode<<std::endl;
+        std::string prod_num;
+        getline(ss, prod_num, ',');
+        prod_list.productionNumbers = std::stoi(prod_num);
+        getline(ss, prod_list.productionManufacturers, ',');
+        getline(ss, prod_list.productionItemTypes, ',');
+        getline(ss, prod_list.productionNames, ',');
+        getline(ss, prod_list.serialNumbers);
+        production_list_vector.push_back(prod_list);
     }
-    productionList.close();
-
+    production_list.close();
     //file to string and string to vector
     //Employee Accounts
     std::ifstream employeeAccounts("employee_accounts.csv");
-    std::string pass;
-    std::string user;
     while (getline(employeeAccounts, line)) {
         std::stringstream ss(line);
-        getline(ss, user, ',');
-        getline(ss, pass);
-        password.push_back(pass);
-        userName.push_back(user);
+        getline(ss, emp.userName, ',');
+        getline(ss, emp.password);
+        employee_accounts_vector.push_back(emp);
     }
+    employeeAccounts.close();
     //If file does not exist, adds file and admin account
     //user is admin
     //pass is Adm1n
-    if (userName.size() == 0) {
+    if (employee_accounts_vector.size() == 0) {
         std::string adminName = "admin";
         std::string adminPass = "Dgp4q";
         std::ofstream populateEmp("employee_accounts.csv");
         populateEmp << adminName << "," << adminPass << std::endl;
         populateEmp.close();
         std::ifstream employeeAccounts("employee_accounts.csv");
-        std::string pass;
-        std::string user;
         while (getline(employeeAccounts, line)) {
             std::stringstream ss(line);
-            getline(ss, user, ',');
-            getline(ss, pass);
-            password.push_back(pass);
-            userName.push_back(user);
+            getline(ss, emp.userName, ',');
+            getline(ss, emp.password);
+            employee_accounts_vector.push_back(emp);
         }
+        employeeAccounts.close();
     }
-//    for(int i=0; i<serialNumbers.size();i++){
-//        std::cout<<serialNumbers[i]<<std::endl;
-//    }
-    resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes, productionNumbers,
-                              productionManufacturers, productionNames, productionItemTypes, serialNumbers);
-
-    ///*************************LOGIN*********************************
-    //loops until correct login is inputted
-    bool logged_in = false;
 
     //Welcome greeting
-    std::cout << "Production Line Tracker\n" << std::endl;
+    std::cout << "   Production Line Tracker   " << std::endl;
+    std::cout << "*****************************" << std::endl;
+    std::cout << "Please log in to continue..." << std::endl;
+    bool logged_in = false;
 
-    //Starts menu
-    int userMenuChoice;
+    //Initialize for menu start
+    int user_menu_choice;
 
     //Initiate endless loop with terminator
-    bool continueProgram = true;
-    while (continueProgram) {
-        userMenuChoice = displayMenuAndGetChoice();
-        if (userMenuChoice == 1) {
-            if (logged_in == true) {
-                produceItems(productLineManufacturers, productLineNames, productLineItemTypes, productionNumbers,
-                             productionManufacturers, productionNames, productionItemTypes, serialNumbers);
-                resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes,
-                                          productionNumbers,
-                                          productionManufacturers, productionNames, productionItemTypes, serialNumbers);
-            } else { std::cout << "Must be logged in to Access!" << std::endl; }
-            system("pause");
-        } else if (userMenuChoice == 2) {
-            if (logged_in == true) {
-                addNewItems(productLineManufacturers, productLineNames, productLineItemTypes);
-                resetAndRepopulateVectors(productLineManufacturers, productLineNames, productLineItemTypes,
-                                          productionNumbers,
-                                          productionManufacturers, productionNames, productionItemTypes, serialNumbers);
-            } else { std::cout << "Must be logged in to Access!" << std::endl; }
-        } else if (userMenuChoice == 3) {
-            if (logged_in == true) {
-                produceStatistics(productionNumbers,
-                                  productionManufacturers, productionNames, productionItemTypes, serialNumbers,
-                                  productLineItemTypes);
-            } else { std::cout << "Must be logged in to Access!" << std::endl; }
-        } else if (userMenuChoice == 4) {
-            while (logged_in == false) {
-                std::cout << "Please Login to Access System" << std::endl;
-                logged_in = employee_login(password, userName, password_temp, testUserName);
-            }
-            //login status is changed
-            if (logged_in == true) {
-                std::cout << "Logged In" << std::endl;
-            }
-        } else if (userMenuChoice == 5) {
-            createEmployeeAccount(password, userName, password_temp);
-            encrypt_password(password, password_temp);
+    bool continue_program = true;
 
-        } else if (userMenuChoice == 6) {
-            if (logged_in == true) {
-                logged_in = false;
-                std::cout << "You have been logged out." << std::endl;
-            } else { std::cout << "No account to log out of..." << std::endl; }
-        } else if (userMenuChoice == 7) {
-            continueProgram = false;
+    ///Add login status before program loop
+
+    while (continue_program) {
+        if(logged_in == false){
+            //login on startup
+            logged_in = employee_login(employee_accounts_vector,employee_test_vector);}
+        if (logged_in) {
+            user_menu_choice = display_menu_and_get_choice();
+        }
+        if (logged_in == true) {
+            switch (user_menu_choice) {
+                //Product Items
+                case 1: {
+                    produce_items(production_list_vector, catalog_vector);
+                    break;
+                }
+                    //Add Items to Catalog
+                case 2: {
+                    add_new_items(catalog_vector);
+                    break;
+                }
+                    //Display Production Statistics
+                case 3: {
+                    produce_statistics(production_list_vector);
+                    break;
+                }
+                    //Create Employee Account
+                case 4: {
+                    create_employee_account(employee_accounts_vector, employee_test_vector);
+                    break;
+                }
+                    //Logout or in to account
+                case 5: {
+                    logged_in = false;
+                    std::cout << "You have been logged out" << std::endl;
+                    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                    break;
+                }
+                    //Exit Program
+                case 6: {
+                    continue_program = false;
+                    break;
+                }
+                default: {
+                    std::cout << "You have entered an invalid number, please try again.\n" << std::endl;
+                    break;
+                }
+            }
         } else {
-            std::cout << "You have entered an invalid number, please try again.\n\n" << std::endl;
+            std::cout << "Please log in to access system..." << std::endl;
+            employee_login(employee_accounts_vector,employee_test_vector);
         }
     }
-    return 0;
 }
 
-int displayMenuAndGetChoice() {
+int display_menu_and_get_choice() {
     //Menu selection prompt
     std::cout << "\n**********Menu************" << std::endl;
     std::cout << "1) Produce Items\n";
-    std::cout << "2) Add New Items\n";
+    std::cout << "2) Add New Item to Catalog\n";
     std::cout << "3) Production Statistics\n";
-    std::cout << "4) Login to Employee Account\n";
-    std::cout << "5) Create Employee Account\n";
-    std::cout << "6) Logout\n";
-    std::cout << "7) Exit Program\n";
+    std::cout << "4) Create Employee Account\n";
+    std::cout << "5) Logout of Account\n";
+    std::cout << "6) Exit Program\n";
     int userMenuChoice;
     std::cin >> userMenuChoice;
     return userMenuChoice;
 }
 
-void produceItems(std::vector<std::string> &productLineManufacturers,
-                  std::vector<std::string> &productLineNames, std::vector<std::string> &productLineItemTypes,
-                  std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
-                  std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
-                  std::vector<std::string> &serialNumbers) {
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
+void produce_items(std::vector<production_list_struct> &production_list_vector,
+                   const std::vector<catalog_struct> &catalog_vector) {
     //output catalog
     std::cout << "\nChoose a Product to Produce:" << std::endl;
     std::cout << "****************************" << std::endl;
-    for (int product_index = 0; product_index < productLineManufacturers.size(); product_index++) {
+    for (int product_index = 0; product_index < catalog_vector.size(); product_index++) {
         std::cout << product_index + 1 << ". ";
-        std::cout << productLineManufacturers[product_index] << " ";
-        std::cout << productLineNames[product_index] << " ";
-        std::cout << productLineItemTypes[product_index] << "\n";
+        std::cout << catalog_vector[product_index].productLineManufacturers << " ";
+        std::cout << catalog_vector[product_index].productLineNames << " ";
+        std::cout << catalog_vector[product_index].productLineItemTypes << "\n";
     }
     //choice for production
     int userChoiceForProduct;
@@ -282,106 +258,51 @@ void produceItems(std::vector<std::string> &productLineManufacturers,
 
     //get num for serial
     int countItemType = 0;
-    std::string itemType = productLineItemTypes[userChoiceForProduct];
+    std::string itemType = catalog_vector[userChoiceForProduct].productLineItemTypes;
     //std::cout << productionItemTypes.size() << std::endl;
-    for (int i = 0; i < productionItemTypes.size(); i++) {
-        if (itemType == productionItemTypes[i]) {
+    for (int i = 0; i < production_list_vector.size(); i++) {
+        if (itemType == production_list_vector[i].productionItemTypes) {
             countItemType++;
         }
     }
-    //test line for item count
-    //std::cout << itemType << " appeared " << countItemType << " times" << std::endl;
-
     //create serial num and save
     int serialCount = 1;
-    int prodNum = productionNumbers.size();
+    int prodNum = production_list_vector.size();
     //std::cout << productionManufacturers.size()<<std::endl;
     while (serialCount < serialNumInput + 1) {
         prodNum++;
         std::ofstream productionList;
         productionList.open("production_list.csv", std::ios_base::app);
-        std::string manReduced = productLineManufacturers[userChoiceForProduct].substr(0, 3);
+        std::string manReduced = catalog_vector[userChoiceForProduct].productLineManufacturers.substr(0, 3);
         std::string serialNumber;
-        productionList << prodNum << "," << productLineManufacturers[userChoiceForProduct]
-                       << "," << productLineItemTypes[userChoiceForProduct] << ","
-                       << productLineNames[userChoiceForProduct] << "," << manReduced
-                       << productLineItemTypes[userChoiceForProduct] << std::setfill('0') << std::setw(5)
+        productionList << prodNum << "," << catalog_vector[userChoiceForProduct].productLineManufacturers
+                       << "," << catalog_vector[userChoiceForProduct].productLineItemTypes << ","
+                       << catalog_vector[userChoiceForProduct].productLineNames << "," << manReduced
+                       << catalog_vector[userChoiceForProduct].productLineItemTypes << std::setfill('0') << std::setw(5)
                        << countItemType + serialCount << std::endl;
         serialCount++;
     }
-
-}
-
-void resetAndRepopulateVectors(std::vector<std::string> &productLineManufacturers,
-                               std::vector<std::string> &productLineNames,
-                               std::vector<std::string> &productLineItemTypes,
-                               std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
-                               std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
-                               std::vector<std::string> &serialNumbers) {
-
-    while (0 < productLineItemTypes.size()) {
-        productLineManufacturers.pop_back();
-        productLineNames.pop_back();
-        productLineItemTypes.pop_back();
+    int reset_vectors = production_list_vector.size();
+    for(int reset_vetors_count = 0; reset_vetors_count < reset_vectors; reset_vetors_count++) {
+        production_list_vector.pop_back();
     }
-
-    while (0 < productionNumbers.size()) {
-        productionNumbers.pop_back();
-        productionManufacturers.pop_back();
-        productionItemTypes.pop_back();
-        productionNames.pop_back();
-        serialNumbers.pop_back();
-    }
-//    for(int i=0; i<serialNumbers.size();i++){
-//        std::cout<<serialNumbers[i]<<std::endl;
-//    }
-
     std::string line;
-    //file to string and string to vector
-    //catalog
-    std::ifstream catalog("Catalog.csv");
-    std::string manufacturer;
-    std::string prodName;
-    std::string itemTypeCode;
-    while (getline(catalog, line)) {
+    std::ifstream production_list("production_list.csv");
+    while(getline(production_list, line)) {
         std::stringstream ss(line);
-        getline(ss, manufacturer, ',');
-        getline(ss, prodName, ',');
-        getline(ss, itemTypeCode);
-        productLineManufacturers.push_back(manufacturer);
-        productLineNames.push_back(prodName);
-        productLineItemTypes.push_back(itemTypeCode);
-
+        std::string prod_num;
+        getline(ss, prod_num, ',');
+        prod_list.productionNumbers = std::stoi(prod_num);
+        getline(ss, prod_list.productionManufacturers, ',');
+        getline(ss, prod_list.productionItemTypes, ',');
+        getline(ss, prod_list.productionNames, ',');
+        getline(ss, prod_list.serialNumbers);
+        production_list_vector.push_back(prod_list);
     }
-    catalog.close();
-
-    //file to string and string to vector
-    //production list
-    int prodNum;
-    std::string prodNumString;
-    std::string serialNum;
-    std::ifstream productionList("production_list.csv");
-    while (getline(productionList, line)) {
-        std::stringstream ss(line);
-        getline(ss, prodNumString, ',');
-        prodNum = std::stoi(prodNumString);
-        getline(ss, manufacturer, ',');
-        getline(ss, itemTypeCode, ',');
-        getline(ss, prodName, ',');
-        getline(ss, serialNum);
-        productionNumbers.push_back(prodNum);
-        productionManufacturers.push_back(manufacturer);
-        productionItemTypes.push_back(itemTypeCode);
-        productionNames.push_back(prodName);
-        serialNumbers.push_back(serialNum);
-    }
-//    for(int i=0; i<serialNumbers.size();i++){
-//        std::cout<<serialNumbers[i]<<std::endl;
-//    }
+    production_list.close();
 }
 
-void addNewItems(std::vector<std::string> &productLineManufacturers,
-                 std::vector<std::string> &productLineNames, std::vector<std::string> &productLineItemTypes) {
+void add_new_items(std::vector<catalog_struct> &catalog_vector){
     std::cout << "\nAdd Product to Cataglog" << std::endl;
     std::cout << "***********************" << std::endl;
     std::string manufacturer, prodName;
@@ -413,29 +334,21 @@ void addNewItems(std::vector<std::string> &productLineManufacturers,
             break;
     }
     int catalogCount = 0;
+    std::ofstream catalog;
     while (catalogCount < 1) {
-        std::ofstream catalog;
         catalog.open("Catalog.csv", std::ios_base::app);
         catalog << manufacturer << "," << prodName << "," << itemTypeCode << std::endl;
         catalogCount++;
     }
-}
-///delete option with remove and sort
+    catalog.close();
 
-///sort vectors
-void sortProductionList(std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
-                        std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
-                        std::vector<std::string> &serialNumbers) {
-
+    cata.productLineManufacturers = manufacturer;
+    cata.productLineNames = prodName;
+    cata.productLineItemTypes = itemTypeCode;
+    catalog_vector.push_back(cata);
 }
 
-void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::string> &productionManufacturers,
-                       std::vector<std::string> &productionNames, std::vector<std::string> &productionItemTypes,
-                       std::vector<std::string> &serialNumbers, std::vector<std::string> &productLineItemTypes) {
-    ///number of each type
-    ///total items produced
-    ///view each type
-    ///search by serial number
+void produce_statistics(const std::vector<production_list_struct> &production_list_vector){
     int statisticChoice;
     std::cout << "\nChoose Statistic to Produce:" << std::endl;
     std::cout << "****************************" << std::endl;
@@ -448,8 +361,8 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             //Displaying number of each Item Type
             int countItemType = 0;
             std::string itemType = "MM";
-            for (int i = 0; i < productionItemTypes.size(); i++) {
-                if (itemType == productionItemTypes[i]) {
+            for (int i = 0; i < production_list_vector.size(); i++) {
+                if (itemType == production_list_vector[i].productionItemTypes) {
                     countItemType++;
                 }
             }
@@ -457,8 +370,8 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             //Reset for next type
             countItemType = 0;
             itemType = "VI";
-            for (int i = 0; i < productionItemTypes.size(); i++) {
-                if (itemType == productionItemTypes[i]) {
+            for (int i = 0; i < production_list_vector.size(); i++) {
+                if (itemType == production_list_vector[i].productionItemTypes) {
                     countItemType++;
                 }
             }
@@ -466,8 +379,8 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             //Reset for next type
             countItemType = 0;
             itemType = "AM";
-            for (int i = 0; i < productionItemTypes.size(); i++) {
-                if (itemType == productionItemTypes[i]) {
+            for (int i = 0; i < production_list_vector.size(); i++) {
+                if (itemType == production_list_vector[i].productionItemTypes) {
                     countItemType++;
                 }
             }
@@ -475,8 +388,8 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             //Reset for next type
             countItemType = 0;
             itemType = "VM";
-            for (int i = 0; i < productionItemTypes.size(); i++) {
-                if (itemType == productionItemTypes[i]) {
+            for (int i = 0; i < production_list_vector.size(); i++) {
+                if (itemType == production_list_vector[i].productionItemTypes) {
                     countItemType++;
                 }
             }
@@ -487,7 +400,7 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
         case 2: {
             //total items produced
             int totalItemCount = 0;
-            for (totalItemCount; totalItemCount < productionItemTypes.size(); totalItemCount++) {
+            for (totalItemCount; totalItemCount < production_list_vector.size(); totalItemCount++) {
             }
             std::cout << "Total Items Currently Produced: " << totalItemCount << std::endl;
             //system("pause");
@@ -520,9 +433,9 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             }
             std::cout << "Serial Numbers for Type of: " << itemTypeCode << std::endl;
             int ifPrinted = 0;
-            for (int outputCount = 0; outputCount < productionItemTypes.size(); outputCount++) {
-                if (itemTypeCode == productionItemTypes[outputCount]) {
-                    std::cout << serialNumbers[outputCount] << std::endl;
+            for (int outputCount = 0; outputCount < production_list_vector.size(); outputCount++) {
+                if (itemTypeCode == production_list_vector[outputCount].productionItemTypes) {
+                    std::cout << production_list_vector[outputCount].serialNumbers << std::endl;
                     ifPrinted++;
                 }
             }
@@ -534,12 +447,12 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
         }
         case 4: {
             //display entire production log
-            for (int outputCount = 0; outputCount < productionItemTypes.size(); outputCount++) {
-                std::cout << productionNumbers[outputCount] << ". Manufacturer: '"
-                          << productionManufacturers[outputCount] << "' Item Type: '"
-                          << productionItemTypes[outputCount]
-                          << "' Product Name: '" << productionNames[outputCount] << "' Serial Number: '" <<
-                          serialNumbers[outputCount] << "'" << std::endl;
+            for (int outputCount = 0; outputCount < production_list_vector.size(); outputCount++) {
+                std::cout << production_list_vector[outputCount].productionNumbers << ". Manufacturer: '"
+                          << production_list_vector[outputCount].productionManufacturers << "' Item Type: '"
+                          << production_list_vector[outputCount].productionItemTypes
+                          << "' Product Name: '" << production_list_vector[outputCount].productionNames << "' Serial Number: '" <<
+                          production_list_vector[outputCount].serialNumbers << "'" << std::endl;
             }
             break;
         }
@@ -549,12 +462,12 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
             std::string serialInput;
             std::cin >> serialInput;
             int ifPrinted = 0;
-            for (int serialCount = 0; serialCount < serialNumbers.size(); serialCount++) {
-                if (serialNumbers[serialCount] == serialInput) {
-                    std::cout << "Production Number: '" << productionNumbers[serialCount] << ".' Manufacturer: '"
-                              << productionManufacturers[serialCount] << "' Item Type: '"
-                              << productionItemTypes[serialCount]
-                              << "' Product Name: '" << productionNames[serialCount] << "'" << std::endl;
+            for (int serialCount = 0; serialCount < production_list_vector.size(); serialCount++) {
+                if (production_list_vector[serialCount].serialNumbers == serialInput) {
+                    std::cout << "Production Number: '" << production_list_vector[serialCount].productionNumbers << ".' Manufacturer: '"
+                              << production_list_vector[serialCount].productionManufacturers << "' Item Type: '"
+                              << production_list_vector[serialCount].productionItemTypes
+                              << "' Product Name: '" << production_list_vector[serialCount].productionItemTypes << "'" << std::endl;
                     ifPrinted++;
                 }
             }
@@ -569,8 +482,7 @@ void produceStatistics(std::vector<int> &productionNumbers, std::vector<std::str
     }
 }
 
-void createEmployeeAccount(std::vector<std::string> &password, std::vector<std::string> &userName,
-                           std::vector<std::string> &password_temp) {
+void create_employee_account(std::vector<employee_accounts_struct> &employee_accounts_vector, std::vector<employee_test_struct> &employee_test_vector){
     std::cout << "Enter employee's first name:\n";
     std::string first_name;
     std::cin >> first_name;
@@ -587,12 +499,12 @@ void createEmployeeAccount(std::vector<std::string> &password, std::vector<std::
     std::string pass;
 
     //changes user if duplicate would be created
-    for(int i = 0; i < userName.size(); i++){
+    for (int i = 0; i < employee_accounts_vector.size(); i++) {
         int nameCount = 0;
-        if(user_name == userName[i]){
+        if (user_name == employee_accounts_vector[i].userName) {
             nameCount++;
             std::string sNameCount = std::to_string(nameCount);
-            user_name = user_name+sNameCount;
+            user_name = user_name + sNameCount;
         }
     }
     std::cout << "Your generated user name: " + user_name + "\n";
@@ -626,89 +538,82 @@ void createEmployeeAccount(std::vector<std::string> &password, std::vector<std::
         valid = false;
     }
 
-
+    /// STRUCT FOR EMP ACCOUNTS AND ENCRYPT PASSWORD SORT OUT
     if (valid) {
         std::cout << "Valid Password" << std::endl;
-        password_temp.push_back(pass);
-        userName.push_back(user_name);
-        std::ofstream employeeAccounts;
-        employeeAccounts.open("employee_accounts.csv", std::ios_base::app);
-        employeeAccounts << user_name << ",";
-        employeeAccounts.close();
+        emp.userName = user_name;
+        emp.password = pass;
+        employee_accounts_vector.push_back(emp);
+//        password_temp.push_back(pass);
+//        userName.push_back(user_name);
         /// save both to file
+        emp_test.testUserName = user_name;
+        emp_test.password_temp = pass;
+        employee_test_vector.push_back(emp_test);
+        std::string encrypt_pass = employee_test_vector[0].password_temp;
+        employee_test_vector.pop_back();
+        std::string end_pass;
+        for (int count = 0; count < encrypt_pass.size(); count++) {
+            char first_char = encrypt_pass[count];
+            first_char += 3;
+            char new_first_char = first_char;
+            end_pass += new_first_char;
+        }
+        emp.password = end_pass;
+        employee_accounts_vector.push_back(emp);
+
+        std::ofstream employee_accounts;
+        employee_accounts.open("employee_accounts.csv", std::ios_base::app);
+        employee_accounts << emp.userName << "," << emp.password << std::endl;
+        employee_accounts.close();
     } else {
         std::cout << "Invalid Password" << std::endl;
     }
-
 }
 
-///ENCRYPTS PASSWORD
-void encrypt_password(std::vector<std::string> &password, std::vector<std::string> &password_temp) {
-
-    std::string pass = password_temp[0];
-    password_temp.pop_back();
-    std::string endPass;
-    for (int count = 0; count < pass.size(); count++) {
-        char first_char = pass[count];
-        first_char += 3;
-        char new_first_char = first_char;
-        endPass += new_first_char;
-    }
-    password.push_back(endPass);
-
-    std::ofstream employeeAccounts;
-    employeeAccounts.open("employee_accounts.csv", std::ios_base::app);
-    employeeAccounts << endPass << std::endl;
-    employeeAccounts.close();
-}
-
-void encrypt_test_password(std::vector<std::string> &password_temp) {
-
-    std::string pass = password_temp[0];
-    password_temp.pop_back();
-    std::string endPass;
-    for (int count = 0; count < pass.size(); count++) {
-        char first_char = pass[count];
-        first_char += 3;
-        char new_first_char = first_char;
-        endPass += new_first_char;
-
-    }
-    password_temp.push_back(endPass);
-}
-
-bool employee_login(std::vector<std::string> &password, std::vector<std::string> &userName,
-                    std::vector<std::string> &password_temp, std::vector<std::string> &testUserName) {
+bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vector, std::vector<employee_test_struct> &employee_test_vector){
     std::string userName_temp;
     std::cout << "Enter Username: " << std::endl;
     std::cin >> userName_temp;
-    testUserName.push_back(userName_temp);
+    emp_test.testUserName = userName_temp;
+    //testUserName.push_back(userName_temp);
     bool user_found = false;
     bool logged_in = false;
-    for (int count = 0; count < userName.size(); count++) {
-        if (testUserName[0] == userName[count]) {
-            testUserName.pop_back();
+
+    for (int count = 0; count < employee_accounts_vector.size(); count++) {
+        if (userName_temp == employee_accounts_vector[count].userName) {
+            //testUserName.pop_back();
             std::cout << "Enter Password: " << std::endl;
             std::string test_pass;
             std::cin >> test_pass;
-            password_temp.push_back(test_pass);
-            encrypt_test_password(password_temp);
+            emp_test.password_temp = test_pass;
+            employee_test_vector.push_back(emp_test);
+            ///create encyrption for test pass
+            std::string encrypt_pass = employee_test_vector[0].password_temp;
+            employee_test_vector.pop_back();
+            std::string end_pass;
+            for (int encrypt_count = 0; encrypt_count < encrypt_pass.length(); encrypt_count++) {
+                char first_char = encrypt_pass[encrypt_count];
+                first_char += 3;
+                char new_first_char = first_char;
+                end_pass += new_first_char;
+            }
             user_found = true;
-            if (password_temp[0] == password[count]) {
-                std::cout << "Login Success: ";
-                password_temp.pop_back();
+            ///loop for user-password testcase
+
+            ///create a loop for going through user passwords
+            if (end_pass == employee_accounts_vector[count].password) {
+                std::cout << "Login Success: " << std::endl;
                 logged_in = true;
                 break;
             } else {
                 std::cout << "Incorrect Password!" << std::endl;
-                password_temp.pop_back();
                 break;
             }
         }
     }
     if (user_found == false) {
         std::cout << "User was not found!" << std::endl;
-        testUserName.pop_back();
     }
 
     return logged_in;
