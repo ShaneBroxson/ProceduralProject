@@ -6,9 +6,9 @@ Project created by Shane Broxson. Made in the summer of 2019. At beginning had n
 [docs](ShaneBroxson.github.io/ProceduralProject/docs/index.html)
 ## Diagrams
 ## Getting Started
-Instructions to get a copy of the project up and running on someone's local machine for development and testing purposes. 
-Note for real project: You want to be able to share your project and enable collaboration. 
-Note for school project: You want a potential client or hirer to be able to run your program.
+When project folder is downloaded you should be able to run executable. Any additonal files for the project will be created on first run.
+You will be prompted to enter the Username and Password when the program runs. <br />
+The Default Username and Password: admin / Adm1n
 ## Built With
 * CLion by JetBrains
 * Visual Studio Compiler
@@ -29,3 +29,7 @@ Added files to save data on.
 Added code to populate vectors with existing data when program starts.
 Changed vectors to be added to struct at beginning of file and associated function calls.
 ## Key Programming Concepts Utilized
+* Procedural Programming
+* Recursive Functions
+* Vectors
+* Data Structures
