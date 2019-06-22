@@ -255,11 +255,10 @@ int main() {
     bool continue_program = true;
 
     ///Add login status before program loop
-
+    if (logged_in == false) {
+        logged_in = employee_login(employee_accounts_vector, employee_test_vector); /* login on startup */
+    }
     while (continue_program) {
-        if (logged_in == false) {
-            logged_in = employee_login(employee_accounts_vector, employee_test_vector); /* login on startup */
-        }
         if (logged_in) {
             user_menu_choice = display_menu_and_get_choice();
         }
@@ -304,7 +303,7 @@ int main() {
             }
         } else {
             std::cout << "Please log in to access system..." << std::endl;
-            employee_login(employee_accounts_vector, employee_test_vector);
+            logged_in = employee_login(employee_accounts_vector, employee_test_vector);
         }
     }
 }
@@ -660,13 +659,16 @@ void create_employee_account(std::vector<employee_accounts_struct> &employee_acc
 
 bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vector,
                     std::vector<employee_test_struct> &employee_test_vector) {
+    if (employee_test_vector.size() != 0) {
+        employee_test_vector.pop_back();
+    }
     std::string userName_temp;
     std::cout << "Enter Username: " << std::endl;
     std::cin >> userName_temp;
     emp_test.testUserName = userName_temp;
     bool user_found = false;
     bool logged_in = false;
-    //std::cout << logged_in << std::endl;
+
     for (int count = 0; count < employee_accounts_vector.size(); count++) {
         if (userName_temp == employee_accounts_vector[count].userName) {
             std::cout << "Enter Password: " << std::endl;
@@ -690,6 +692,7 @@ bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vec
             if (end_pass == employee_accounts_vector[count].password) {
                 std::cout << "Login Success: " << std::endl;
                 logged_in = true;
+
                 break;
             } else {
                 std::cout << "Incorrect Password!" << std::endl;
@@ -700,6 +703,5 @@ bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vec
     if (user_found == false) {
         std::cout << "User was not found!" << std::endl;
     }
-
     return logged_in;
 }
