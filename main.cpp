@@ -666,7 +666,7 @@ bool employee_login(std::vector<employee_accounts_struct> &employee_accounts_vec
     emp_test.testUserName = userName_temp;
     bool user_found = false;
     bool logged_in = false;
-
+    //std::cout << logged_in << std::endl;
     for (int count = 0; count < employee_accounts_vector.size(); count++) {
         if (userName_temp == employee_accounts_vector[count].userName) {
             std::cout << "Enter Password: " << std::endl;
