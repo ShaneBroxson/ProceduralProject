@@ -18,7 +18,7 @@ GUI Development is most likely the next development process for this project.
 ## Author
 * Shane Broxson
 ## License
-No current license.
+GNU General Public License
 ## Acknowledgments
 * StackOverFlow
 * cplusplus.com
